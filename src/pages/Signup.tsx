@@ -1,8 +1,9 @@
 import { cn } from '@/lib/utils';
 import { buttonVariants } from '@/components/ui/button';
-import { SignupForm } from '../components/SignUpForm';
+
 import { Link } from 'react-router-dom';
 import logo from '../assets/images/technet-logo-white.png';
+import { SignupForm } from '@/components/SingupForm';
 
 export default function Signup() {
   return (

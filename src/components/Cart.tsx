@@ -12,15 +12,15 @@ import {
   HiOutlineTrash,
 } from 'react-icons/hi';
 import { Button } from './ui/button';
-import { IProduct } from '@/types/globalTypes';
+
+import { useAppDispatch, useAppSelector } from '@/redux/hook';
+import { addToCart, removeFromCart, removeOne } from '@/redux/features/cart/cartSlice';
 
 export default function Cart() {
-  //! Dummy data
+  const {products,total} = useAppSelector((state)=>state.cart)
+  const dispatch = useAppDispatch();
 
-  const products: IProduct[] = [];
-  const total = 0;
-
-  //! **
+ 
 
   return (
     <Sheet>
@@ -37,7 +37,7 @@ export default function Cart() {
         <div className="space-y-5">
           {products.map((product) => (
             <div
-              className="border h-44 p-5 flex justify-between rounded-md"
+              className="border h-44 p-3 flex justify-between rounded-md"
               key={product.name}
             >
               <div className="border-r pr-5 shrink-0">
@@ -46,19 +46,19 @@ export default function Cart() {
               <div className="px-2 w-full flex flex-col gap-3">
                 <h1 className="text-2xl self-center">{product?.name}</h1>
                 <p>Quantity: {product.quantity}</p>
-                <p className="text-xl">
+                <p className="text-xl ">
                   Total Price: {(product.price * product.quantity!).toFixed(2)}{' '}
                   $
                 </p>
               </div>
               <div className="border-l pl-5 flex flex-col justify-between">
-                <Button>
+                <Button onClick={()=>dispatch(addToCart(product))}>
                   <HiOutlinePlus size="20" />
                 </Button>
-                <Button>
+                <Button onClick={()=>dispatch(removeOne(product))}>
                   <HiMinus size="20" />
                 </Button>
-                <Button
+                <Button onClick={()=>dispatch(removeFromCart(product))}
                   variant="destructive"
                   className="bg-red-500 hover:bg-red-400"
                 >
